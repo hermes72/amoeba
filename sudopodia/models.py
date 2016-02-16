@@ -13,3 +13,16 @@ class Event(models.Model):
     Postscript = models.CharField(max_length=50)
     Links = models.CharField(max_length=200)
     Updated = models.BooleanField()
+    def __json__(self):
+        jsons = '{'
+        jsons += '"ID" : "' + str(self.id) + '",'
+        jsons += '"Name" : "' + self.Name + '",'
+        jsons += '"TimeStamp" : "' + str(self.TimeStamp) + '",'
+        jsons += '"Genre" : "' + self.Genre + '",'
+        jsons += '"Venue" : "' + self.Venue + '",'
+        jsons += '"Description" : "' + self.Description + '",'
+        jsons += '"Contact" : "' + self.Contact + '",'
+        jsons += '"Postscript" : "' + self.Postscript + '",'
+        jsons += '"Links" : "' + self.Links + '",'
+        jsons += '"Updated" : "' + str(self.Updated) + '}'
+        return jsons
