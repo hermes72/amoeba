@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     url(r'^api$', views.api),
     url(r'^api/$', views.api),
-    url(r'^register/$', views.registerevent),
-    url(r'^register$', views.registerevent),
+    url(r'^requestapi/$', views.requestapi),
+    url(r'^requestapi$', views.requestapi),
     url(r'^$', views.index)
 ]
