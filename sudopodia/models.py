@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
-
+import os 
 from django.db import models
-
+import hashlib
 # Create your models here.
 class Event(models.Model):
     Name = models.CharField(max_length=40)
@@ -26,3 +26,16 @@ class Event(models.Model):
         jsons += '"Links" : "' + self.Links + '",'
         jsons += '"Updated" : "' + str(self.Updated) + '}'
         return jsons
+
+class User(models.Model):
+    Name = models.CharField(max_length=100)
+    Email = models.CharField(max_length=100)
+    apikey = models.CharField(max_length=32)
+    auth = models.BooleanField(default=False)
+    def isauth(self):
+        return bool(auth)
+    def gen(self,name,email):
+        self.Name = name
+	self.Email = email
+	padding = os.urandom(6).encode('hex')
+	self.apikey = hashlib.md5(name + padding + email).hexdigest()
