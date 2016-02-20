@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Event
+from .models import Event,User
+from django.shortcuts import render
 # Create your views here.
 def api(request):
     i = 0
@@ -17,7 +18,19 @@ def api(request):
     return retresp
 
 def index(request):
-    return HttpResponse("wait for it")
+    return render(request,'sudopodia/index.html')
 
-def registerevent(request):
-    return HttpResponse("Event added to the database")
+def requestapi(request):
+    name = request.POST['Name'] 
+    email = request.POST['Email']
+    newuser = User()
+    newuser.gen(name,email)
+    allu = User.objects.all()
+    l = len(allu)
+    i = 0
+    while(i < l):
+        if (email == allu[i].Email):
+	    return HttpResponse("Given Email " + email + " is already registered.")
+	i += 1
+    newuser.save()
+    return HttpResponse("Your API Key is : " + newuser.apikey + "<br>Your api key is yet to be authorised.")
