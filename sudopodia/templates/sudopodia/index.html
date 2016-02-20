@@ -1,0 +1,14 @@
+<html>
+	<body>
+		<form action="/requestapi" method="post">
+			{% csrf_token %}
+		Name:
+		<input type="text" name="Name">
+		<br>
+		Email:
+		<input type="email" name="Email">
+		<br>
+		<input type="submit" value="Submit">
+		</form>
+	  </body>
+</html>
