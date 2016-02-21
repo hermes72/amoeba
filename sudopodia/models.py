@@ -5,14 +5,14 @@ import hashlib
 # Create your models here.
 class Event(models.Model):
     Name = models.CharField(max_length=40)
-    TimeStamp = models.DateTimeField("")
+    TimeStamp = models.CharField(max_length=30)
     Genre = models.CharField(max_length=20)
     Venue = models.CharField(max_length=50)
     Description = models.CharField(max_length=200)
     Contact = models.CharField(max_length=50)
     Postscript = models.CharField(max_length=50)
     Links = models.CharField(max_length=200)
-    Updated = models.BooleanField()
+    Updated = models.BooleanField(default=False)
     def __json__(self):
         jsons = '{'
         jsons += '"ID" : "' + str(self.id) + '",'
@@ -33,7 +33,7 @@ class User(models.Model):
     apikey = models.CharField(max_length=32)
     auth = models.BooleanField(default=False)
     def isauth(self):
-        return bool(auth)
+        return bool(self.auth)
     def gen(self,name,email):
         self.Name = name
 	self.Email = email
