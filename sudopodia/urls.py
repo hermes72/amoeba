@@ -6,5 +6,7 @@ urlpatterns = [
     url(r'^api/$', views.api),
     url(r'^requestapi/$', views.requestapi),
     url(r'^requestapi$', views.requestapi),
+    url(r'^postpage$',views.postpage),
+    url(r'^postevent$',views.eventsubmit),
     url(r'^$', views.index)
 ]
