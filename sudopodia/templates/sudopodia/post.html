@@ -17,16 +17,18 @@
   </style>
   <body>
     <center>
-    <form action="/postevent" method="post">
+    <form action="/postevent" method="post" enctype="multipart/form-data">
       Name : <input type="text" name="Name" ><br>
-      TimeStamp : <input type="time" name="Timestamp" ><br>
+      Date and Time: <input type="datetime" name="Timestamp" ><br>
       Genre : <input type="text" name="Genre" ><br>
       Venue : <input type="text" name="Venue" ><br>
       Description : <textarea type="text" name="Description" ></textarea><br>
       Contact : <input type="text" name="Contact" ><br>
       Postscript : <input type="text" name="Postscript" ><br>
       Links : <input type="text" name="Links" ><br>
-      File : <input type="file" name="Image"><br>
+      File : <input type="file" name="Image" accept="image/*"><br>
+      API Key : <input type="text" name="key">
+      <input type="submit" name="submit" value="Post Event">
     </form>
     </center>
   </body>
