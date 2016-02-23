@@ -23,16 +23,22 @@ def requestapi(request):
     return HttpResponse("Your API Key is : " + newuser.apikey + "<br>Your api key is yet to be authorised.")
 
 def api(request):
+    return apifrom(request,eventid="0")
+
+def apifrom(request, eventid):
+    #return HttpResponse(eventid)
+    eventid = int(eventid)
     i = 0
     objs = Event.objects.all()
-    l = len(objs)
     result = "["
-    while (i < l) :
-        result += objs[i].__json__()
-	if (i != l - 1) :
-	    result += ","
-	i += 1
-    result += "]"
+    for o in objs :
+        if (o.id > eventid):
+            result += o.__json__()
+            result += ","
+    if (result[len(result)-1] != "["):
+        result = result[0:len(result) - 1] + "]"
+    else :
+        result += "]"
     retresp = HttpResponse(result,content_type="application/json")
     return retresp
 
@@ -48,12 +54,22 @@ def eventsubmit(request):
     l = len(allu)
     i = 0
     isauth = False
+    name =""
+    ispresent = False
     while(i < l):
-        if (apikey == allu[i].apikey and allu[i].isauth()):
-	    isauth = True
+        if (apikey == allu[i].apikey ):
+            ispresent = True
+            if (allu[i].isauth()):
+	        isauth = True
+                name = allu[i].Name
+            else :
+                isauth = False
+            break
 	i += 1
-    if not isauth :
-        return HttpResponse("Your api key is not authorised or not found in the database")
+    if not isauth and ispresent:
+        return HttpResponse("{\"Error\":\"Your api key is yet to be authorised\"}",content_type="application/json")
+    if not ispresent :
+        return HttpResponse("{\"Error\":\"Your api key is not found in the database. Goto the site and register one.\"}",content_type="application/json")
     newEvent = Event()
     newEvent.Name = request.POST["Name"]
     newEvent.TimeStamp = request.POST["Timestamp"]
@@ -63,6 +79,7 @@ def eventsubmit(request):
     newEvent.Contact = request.POST["Contact"]
     newEvent.Postscript = request.POST["Postscript"]
     newEvent.Links = request.POST["Links"]
+    newEvent.PostedBy = name
     newEvent.save()
     Image = request.FILES["Image"]
     imgdata = Image.read()
