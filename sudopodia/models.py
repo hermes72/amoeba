@@ -26,7 +26,11 @@ class Event(models.Model):
         jsons += '"Postscript" : "' + self.Postscript + '",'
         jsons += '"Links" : "' + self.Links + '",'
 	jsons += '"PostedBy" : "' + self.PostedBy + '",'
-        jsons += '"Updated" : ' + str(self.Updated) + '}'
+	if (str(self.Updated)=="False"):
+	    boolu = "false"
+	else:
+	    boolu = "true"
+        jsons += '"Updated" : ' + boolu + '}'
         return jsons
 
 class User(models.Model):
