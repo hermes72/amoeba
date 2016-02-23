@@ -86,4 +86,4 @@ def eventsubmit(request):
     image = open("sudopodia/static/images/"+str(newEvent.id),"w")
     image.write(imgdata)
     image.close()
-    return HttpResponse("Your data has been recorded in the database")
+    return HttpResponse("{\"Message\":\"Your data has been recorded in the database}\"",content_type="application/json")
