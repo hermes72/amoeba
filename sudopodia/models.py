@@ -12,6 +12,7 @@ class Event(models.Model):
     Contact = models.CharField(max_length=50)
     Postscript = models.CharField(max_length=50)
     Links = models.CharField(max_length=200)
+    PostedBy = models.CharField(max_length=100,default="")
     Updated = models.BooleanField(default=False)
     def __json__(self):
         jsons = '{'
