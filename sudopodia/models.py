@@ -25,6 +25,7 @@ class Event(models.Model):
         jsons += '"Contact" : "' + self.Contact + '",'
         jsons += '"Postscript" : "' + self.Postscript + '",'
         jsons += '"Links" : "' + self.Links + '",'
+	jsons += '"PostedBy" : "' + self.PostedBy + '",'
         jsons += '"Updated" : "' + str(self.Updated) + '}'
         return jsons
 
